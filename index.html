@@ -797,7 +797,7 @@ details[open] .chevron { transform: rotate(180deg); }
 .modal-btn.cancel  { background: var(--parchment); color: var(--muted); border: 1px solid var(--border); }
 
 /* ── LIGHTBOX ── */
-#lightbox {
+.lb-overlay {
   display: none;
   position: fixed;
   inset: 0;
@@ -807,8 +807,8 @@ details[open] .chevron { transform: rotate(180deg); }
   justify-content: center;
   cursor: zoom-out;
 }
-#lightbox.show { display: flex; }
-#lightbox img {
+.lb-overlay.show { display: flex; }
+.lb-overlay img {
   max-width: 92vw;
   max-height: 92vh;
   border-radius: 50%;
@@ -1666,7 +1666,7 @@ async function doRemove() {
 }
 
 /* ── LIGHTBOX ── */
-#lightbox {
+.lb-overlay {
   display: none;
   position: fixed;
   inset: 0;
@@ -1676,8 +1676,8 @@ async function doRemove() {
   justify-content: center;
   cursor: zoom-out;
 }
-#lightbox.show { display: flex; }
-#lightbox img {
+.lb-overlay.show { display: flex; }
+.lb-overlay img {
   max-width: 92vw;
   max-height: 92vh;
   border-radius: 50%;
@@ -1764,20 +1764,20 @@ renderBranches();
 loadVersionsFromGitHub();
 
 </script>
-<div id="photo-lightbox" onclick="closeLightbox()">
-  <img id="photo-lightbox-img" src="" alt="">
+<div class="lb-overlay" onclick="closeLightbox()">
+  <img id="lb-img" src="" alt="">
 </div>
 
 <script>
 function openLightbox(src) {
-  const lb = document.getElementById('photo-lightbox');
-  const img = document.getElementById('photo-lightbox-img');
+  const lb = document.querySelector('.lb-overlay');
+  const img = document.getElementById('lb-img');
   img.src = src;
   lb.classList.add('show');
   document.body.style.overflow = 'hidden';
 }
 function closeLightbox() {
-  document.getElementById('photo-lightbox').classList.remove('show');
+  document.querySelector('.lb-overlay').classList.remove('show');
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
