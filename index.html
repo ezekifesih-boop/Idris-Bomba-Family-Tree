@@ -2,9 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Idris Bomba Family Tree</title>
 <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
@@ -799,26 +796,6 @@ details[open] .chevron { transform: rotate(180deg); }
 .modal-btn.remove  { background: #fdf0ef; color: #c0392b; border: 1px solid #f5c6c2; }
 .modal-btn.cancel  { background: var(--parchment); color: var(--muted); border: 1px solid var(--border); }
 
-/* ── LIGHTBOX ── */
-.lb-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.85);
-  z-index: 9999;
-  align-items: center;
-  justify-content: center;
-  cursor: zoom-out;
-}
-.lb-overlay.show { display: flex; }
-.lb-overlay img {
-  max-width: 92vw;
-  max-height: 92vh;
-  border-radius: 50%;
-  box-shadow: 0 8px 40px rgba(0,0,0,.6);
-  object-fit: cover;
-}
-
 /* ── TOAST ────────────────────────────── */
 .toast {
   position: fixed;
@@ -1230,7 +1207,7 @@ function renderAvatar(id, name, cls = 'avatar', size = '') {
   const u = photoSrc(id);
   const ini = initials(name);
   const style = size ? ` style="width:${size};height:${size}"` : '';
-  const img = u ? `<img src="${u}" onclick="openLightbox('${u}')" style="cursor:zoom-in" onerror="this.style.display='none'">` : ini;
+  const img = u ? `<img src="${u}" onerror="this.style.display='none'">` : ini;
   return `<div class="${cls}" data-avatar="${id}"${style}>${img}</div>`;
 }
 
@@ -1238,7 +1215,7 @@ function renderAvatar(id, name, cls = 'avatar', size = '') {
 function renderMini(id, name) {
   const u = photoSrc(id);
   const ini = initials(name);
-  const img = u ? `<img src="${u}" onclick="openLightbox('${u}')" style="cursor:zoom-in" onerror="this.style.display='none'">` : ini;
+  const img = u ? `<img src="${u}" onerror="this.style.display='none'">` : ini;
   return `<div class="mini" data-avatar="${id}">${img}</div>`;
 }
 
@@ -1369,7 +1346,7 @@ function uploadPhoto(id) {
   const url = cloudUrl(id);
   const ini = initials(name);
   avatarEl.innerHTML = url
-    ? `<img src="${url}" onclick="openLightbox('${url}')" style="cursor:zoom-in" onerror="this.style.display='none'">`
+    ? `<img src="${url}" onerror="this.style.display='none'">`
     : ini;
   avatarEl.dataset.avatar = id;
 
@@ -1668,26 +1645,6 @@ async function doRemove() {
   }
 }
 
-/* ── LIGHTBOX ── */
-.lb-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.85);
-  z-index: 9999;
-  align-items: center;
-  justify-content: center;
-  cursor: zoom-out;
-}
-.lb-overlay.show { display: flex; }
-.lb-overlay img {
-  max-width: 92vw;
-  max-height: 92vh;
-  border-radius: 50%;
-  box-shadow: 0 8px 40px rgba(0,0,0,.6);
-  object-fit: cover;
-}
-
 /* ── TOAST ──────────────────────────────────── */
 function toast(msg, duration) {
   const t = document.getElementById('toast');
@@ -1767,25 +1724,6 @@ renderBranches();
 loadVersionsFromGitHub();
 
 </script>
-<div class="lb-overlay" onclick="closeLightbox()">
-  <img id="lb-img" src="" alt="">
-</div>
-
-<script>
-function openLightbox(src) {
-  const lb = document.querySelector('.lb-overlay');
-  const img = document.getElementById('lb-img');
-  img.src = src;
-  lb.classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
-function closeLightbox() {
-  document.querySelector('.lb-overlay').classList.remove('show');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-</script>
 
 </body>
-<!-- v2 -->
 </html>
