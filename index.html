@@ -1764,20 +1764,20 @@ renderBranches();
 loadVersionsFromGitHub();
 
 </script>
-<div id="lightbox" onclick="closeLightbox()">
-  <img id="lightbox-img" src="" alt="">
+<div id="photo-lightbox" onclick="closeLightbox()">
+  <img id="photo-lightbox-img" src="" alt="">
 </div>
 
 <script>
 function openLightbox(src) {
-  const lb = document.getElementById('lightbox');
-  const img = document.getElementById('lightbox-img');
+  const lb = document.getElementById('photo-lightbox');
+  const img = document.getElementById('photo-lightbox-img');
   img.src = src;
   lb.classList.add('show');
   document.body.style.overflow = 'hidden';
 }
 function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('show');
+  document.getElementById('photo-lightbox').classList.remove('show');
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
